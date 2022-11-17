@@ -1,5 +1,8 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const typeDefs = `#graphql
     type Book {
@@ -33,8 +36,10 @@ const server = new ApolloServer({
   resolvers,
 });
 
+const port = process.env.PORT;
+console.log(port);
 const { url } = await startStandaloneServer(server, {
-  listen: { port: 4000 },
+  listen: { port: Number(port) },
 });
 
 console.log(`🚀  Server ready at: ${url}`);
